@@ -19,14 +19,20 @@ appointmentsRouter.post('/', (request, response) => {
   // Adjusts the time format
   const parsedDate = startOfHour(parseISO(date))
 
+  // Checks if the appointment is already booked
   const findAppointmentInSameDate = appointmentsRepository.findByDate(parsedDate);
 
   if (findAppointmentInSameDate) {
-    return response.status(400).json({ message: 'This appointment is already booked.' });
+    return response.status(400).json({ message: 'This appointment is already booked' });
   }
 
 
-  const appointment = appointmentsRepository.create(name, parsedDate, email, phone)
+  const appointment = appointmentsRepository.create({
+    name,
+    date: parsedDate,
+    email,
+    phone
+  });
 
   return response.json(appointment);
 })
