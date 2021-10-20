@@ -1,12 +1,11 @@
-import { id } from "date-fns/locale";
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export default class CreateAppointments1634709049326 implements MigrationInterface {
+export class CreateUsers1634768079087 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(
         new Table({
-          name: 'appointments',
+          name: 'users',
           columns: [
             {
               name: 'id',
@@ -20,16 +19,19 @@ export default class CreateAppointments1634709049326 implements MigrationInterfa
               type: 'varchar',
             },
             {
-              name: 'date',
-              type: 'timestamp with time zone',
-            },
-            {
               name: 'email',
               type: 'varchar',
+              isUnique: true,
             },
             {
-              name: 'phone',
-              type: 'varchar',
+              name: 'created_at',
+              type: 'timestamp',
+              default: 'now()',
+            },
+            {
+              name: 'updated_at',
+              type: 'timestamp',
+              default: 'now()',
             }
           ]
         })
@@ -37,7 +39,7 @@ export default class CreateAppointments1634709049326 implements MigrationInterfa
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-      await queryRunner.dropTable('appointments');
+      await queryRunner.dropTable('users');
     }
 
 }
