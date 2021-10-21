@@ -30,7 +30,7 @@ export default class CreateAppointments1634709049326 implements MigrationInterfa
             {
               name: 'phone',
               type: 'varchar',
-            }
+            },
           ]
         })
       );
